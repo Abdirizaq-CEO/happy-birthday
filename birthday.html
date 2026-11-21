@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Celebration</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #16002c, #5c1688, #ff4e91);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Animated background */
+body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, transparent, rgba(0,0,0,0.35));
+    animation: glow 4s infinite alternate;
+}
+
+@keyframes glow {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+}
+
+h1 {
+    font-size: clamp(35px, 8vw, 85px);
+    color: #ffd700;
+    text-shadow: 0 0 15px #ff69b4, 0 0 40px #ff1493;
+    animation: titleAnimation 2s infinite alternate;
+}
+
+@keyframes titleAnimation {
+    from {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+    to {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+}
+
+.name {
+    font-size: clamp(28px, 5vw, 50px);
+    color: white;
+    margin-top: 15px;
+    animation: fadeIn 3s ease-in-out;
+}
+
+.message {
+    font-size: 22px;
+    margin-top: 20px;
+    animation: fadeIn 4s ease-in-out;
+}
+
+.cake {
+    font-size: 110px;
+    margin: 25px 0;
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Balloons */
+.balloon {
+    position: absolute;
+    bottom: -150px;
+    font-size: 50px;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-120vh) rotate(20deg);
+        opacity: 0;
+    }
+}
+
+/* Confetti */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 14px;
+    top: -20px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+button {
+    margin-top: 25px;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    background: linear-gradient(45deg, #ff1493, #ff8c00);
+    cursor: pointer;
+    box-shadow: 0 0 20px #ff69b4;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+.hidden {
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎉 HAPPY BIRTHDAY 🎉</h1>
+
+    <div class="name" id="birthdayName">
+        To Someone Special ❤️
+    </div>
+
+    <div class="cake">
+        🎂
+    </div>
+
+    <div class="message">
+        Wishing you a day full of love,<br>
+        happiness, laughter and beautiful memories! ✨
+    </div>
+
+    <button onclick="startCelebration()">
+        🎊 Celebrate!
+    </button>
+
+</div>
+
+<script>
+
+// CHANGE THE NAME HERE
+const birthdayPerson = "Someone Special";
+
+// Display the name
+document.getElementById("birthdayName").innerHTML =
+    "Happy Birthday, " + birthdayPerson + " ❤️";
+
+// Balloon emojis
+const balloons = ["🎈", "🎈", "🎈", "💖", "🎈", "🎊"];
+
+// Create floating balloons
+function createBalloon() {
+    const balloon = document.createElement("div");
+
+    balloon.className = "balloon";
+    balloon.innerHTML = balloons[Math.floor(Math.random() * balloons.length)];
+
+    balloon.style.left = Math.random() * 100 + "vw";
+    balloon.style.animationDuration = (5 + Math.random() * 5) + "s";
+
+    document.body.appendChild(balloon);
+
+    setTimeout(() => {
+        balloon.remove();
+    }, 10000);
+}
+
+// Create confetti
+function createConfetti() {
+    const confetti = document.createElement("div");
+
+    confetti.className = "confetti";
+
+    const colors = [
+        "#ff1493", "#ffd700", "#00ffff",
+        "#00ff00", "#ffffff", "#ff4500",
+        "#9b59b6"
+    ];
+
+    confetti.style.backgroundColor =
+        colors[Math.floor(Math.random() * colors.length)];
+
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.animationDuration = (2 + Math.random() * 4) + "s";
+
+    document.body.appendChild(confetti);
+
+    setTimeout(() => {
+        confetti.remove();
+    }, 6000);
+}
+
+// Start the celebration
+function startCelebration() {
+
+    // Balloons
+    for (let i = 0; i < 20; i++) {
+        setTimeout(createBalloon, i * 200);
+    }
+
+    // Confetti
+    for (let i = 0; i < 150; i++) {
+        setTimeout(createConfetti, i * 30);
+    }
+
+    // Change message
+    document.querySelector(".message").innerHTML =
+        "🎉 May all your dreams come true! 🎉<br>" +
+        "Enjoy your special day! ❤️";
+
+    document.querySelector("button").innerHTML =
+        "💖 Celebration Started!";
+
+}
+
+// Automatic animation
+setInterval(createBalloon, 1200);
+setInterval(createConfetti, 150);
+
+</script>
+
+</body>
+</html>
